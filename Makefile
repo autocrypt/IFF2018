@@ -23,6 +23,8 @@ accounts.txt: make-accounts eff_short_wordlist_1.txt
 	./make-accounts < eff_short_wordlist_1.txt > $@
 
 clean:
-	rm -f $(FEEDBACK_PDFS) $(FEEDBACK) burner-credentials.pdf
+	rm -f $(FEEDBACK_PDFS) $(FEEDBACK) \
+	      burner-credentials_out*.svg burner-credentials_out*.pdf \
+	      burner-credentials.pdf
 
 .PHONY: clean all
