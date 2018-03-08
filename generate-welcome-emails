@@ -1,0 +1,51 @@
+#!/usr/bin/python3
+
+from imaplib import IMAP4_SSL
+import sys
+from datetime import datetime, timezone
+from email import message
+import hashlib
+
+RFC2822_FMT = '%a, %d %b %Y %T %z'
+
+accounts = sys.stdin.readlines()
+
+def welcome_msg(u):
+    acct = u.split('@')[0]
+    acct = acct[0].upper() + acct[1:]
+    ret = message.Message()
+    ret['From'] = 'Autocrypt IFF 2018 <venue@librechat.net>'
+    ret['To'] = '%s <%s>'%(acct, u)
+    ret['Subject'] = 'Welcome to IFF 2018 Autocrypt session'
+    ret['Date'] = datetime.now().strftime(RFC2822_FMT)
+    ret.add_header('Content-Type', 'text/plain', charset='utf-8')
+    ret.set_payload('''hey there %s--
+
+Welcome to the Autocrypt session at the Internet Freedom Festival
+2018!
+
+We hope you enjoy this demo session.  If you reply to me here, it
+should show up on the screen.
+
+You might also be interested in chatting with our demonstration
+Autocrypt-enabled bot:
+
+   * iff-bot@sequoia-pgp.org
+
+You might also want to try exchanging encrypted e-mails with other
+people near you.  Help your neighbor get set up!
+
+much <3 from Autocrypt developers!
+'''%(acct,))
+    ret['Message-Id'] = hashlib.sha1(ret.as_bytes()).hexdigest() + '@iff2018.librechat.net'
+    return ret
+
+
+
+for line in accounts:
+    (u,p) = line.strip().split(" ")
+    now = datetime.now(timezone.utc)
+    with IMAP4_SSL("w017f238.kasserver.com") as M:
+        if M.login(u,p):
+            M.append('INBOX', None, now, welcome_msg(u).as_bytes())
+            print("welcomed", u)
