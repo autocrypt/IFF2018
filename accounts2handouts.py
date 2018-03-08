@@ -19,7 +19,7 @@ def main():
         accounts = fp.readlines()
     logger.debug(accounts)
     tree = etree.parse(HANDOUT_PATH)
-    for s in range(0, len(accounts) / 5):
+    for s in range(0, len(accounts) // 5):
         out = HANDOUT_OUT_PATH.format(s)
         for i in range(1, 6):
             j = s * 5  + i
