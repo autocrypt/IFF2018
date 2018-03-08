@@ -1,0 +1,11 @@
+#!/bin/bash
+
+n=${1:-50}
+
+# totally insecure randomness, *and* not enough words for a
+# high-entropy password.  this is ok for a demo session, but not for
+# the real world.
+
+sort -R | \
+    head -n $(( $n * 3 )) | \
+    awk '{ a = b; b = c; c = $2; if (x % 3 == 2) { print a "@librechat.net " b "." c } ; x = x + 1}'
