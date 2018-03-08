@@ -1843,7 +1843,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1966,7 +1966,7 @@
            y="210.59288"
            x="22.448168"
            id="tspan3794"
-           sodipodi:role="line">delta.chat</tspan></text>
+           sodipodi:role="line">Delta Chat</tspan></text>
       <g
          inkscape:label="Layer 1"
          id="layer1-5-0"
