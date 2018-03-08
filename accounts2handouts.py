@@ -31,14 +31,12 @@ def main():
             elements_email = tree.xpath(xpath_email, namespaces=NS)
             logger.debug(elements_email)
             if elements_email:
-                elements_email[0].getchildren()
-                elements_email[0].text = email
+                elements_email[0].getchildren()[0].text = email
                 logger.debug('Added email %s', email)
             xpath_pass = PASS_XPATH.format(i)
             elements_pass = tree.xpath(xpath_pass, namespaces=NS)
             if elements_pass:
-                elements_pass[0].getchildren()[0]
-                elements_pass[0].text = password
+                elements_pass[0].getchildren()[0].text = password
                 logger.debug('Added password %s', password)
         tree.write(out)
         logger.info('Generated %s', out)

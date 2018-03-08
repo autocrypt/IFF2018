@@ -2,10 +2,11 @@
 
 set -ex
 
+# FIXME: should actually use an array instead of a stringified whitespace-delimited list
 pdfs=""
 for x in burner-credentials_out*.svg; do
     out="${x%%.svg}.pdf"
     inkscape --export-pdf-version=1.5 --export-pdf=$out "$x"
     pdfs="$pdfs $out"
 done
-pdftk "$pdfs" cat output "$1"
+pdftk $pdfs cat output "$1"
